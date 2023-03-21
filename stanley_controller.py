@@ -341,8 +341,10 @@ def calc_spline_course(x, y, ds=0.1):
     return rx, ry, ryaw, rk, s
 
 def getCurrentSpeed():
+    # get speed from car
     return 1
 def getCurrentYaw():
+    # get steering angle from car
     return 1
 
 class State(object):
@@ -365,7 +367,7 @@ class State(object):
         self.e = e
 
     # change model and inputs
-    def update(self, delta, target_speed):
+    def update(self, target_speed):
         """
         Update the state of the vehicle.
 
@@ -497,7 +499,7 @@ def main():
         di, target_idx = stanley_control(state, cx, cy, cyaw, target_idx)
 
         # update state
-        state.update(delta=di, target_speed=target_speed)
+        state.update(target_speed)
 
         time += dt
 

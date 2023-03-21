@@ -367,7 +367,7 @@ class State(object):
         self.e = e
 
     # change model and inputs
-    def update(self, target_speed):
+    def update(self, CurrentYaw, CurrentSpeed target_speed):
         """
         Update the state of the vehicle.
 
@@ -380,8 +380,8 @@ class State(object):
 
         self.x += self.v * np.cos(self.yaw) * dt
         self.y += self.v * np.sin(self.yaw) * dt
-        self.yaw = getCurrentYaw()
-        self.v = getCurrentSpeed()
+        self.yaw = CurrentYaw
+        self.v = CurrentSpeed
         self.e += (target_speed-self.v)*dt
 
 def pid_control(state, target): # output is instantaneous acceleration
@@ -499,7 +499,7 @@ def main():
         di, target_idx = stanley_control(state, cx, cy, cyaw, target_idx)
 
         # update state
-        state.update(target_speed)
+        state.update(getCurrentYaw(), getCurrentSpeed(), target_speed)
 
         time += dt
 
